@@ -58,3 +58,6 @@ Client.where.not(first_name: "John") # Retrieves all the client records not name
 Client.order(created_at: :desc) # Retrieves all the client records ordered by created at descending
 Client.order(orders_count: :asc, created_at: :desc) # Retrieves all the client records ordered first by order count, then created at
 
+# Selecting Specific Fields
+Client.select(:first_name) # Retrieves all the first_names of clients
+Client.select(:first_name).distinct # Retrieves all the distinct first_names of clients
