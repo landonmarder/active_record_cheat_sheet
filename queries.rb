@@ -61,3 +61,16 @@ Client.order(orders_count: :asc, created_at: :desc) # Retrieves all the client r
 # Selecting Specific Fields
 Client.select(:first_name) # Retrieves all the first_names of clients
 Client.select(:first_name).distinct # Retrieves all the distinct first_names of clients
+
+# Limit and Offset
+Client.limit(5) # Will return a maximum of 5 clients
+Client.limit(5).offset(30) # Will return a maximum of 5 clients, starting with the 31st
+
+# Grouping
+Order.select("date(created_at) as ordered_date, sum(price) as total_price")
+.group("date(created_at)") # Will give you a single order records for each date where there are orders
+Order.select("date(created_at) as ordered_date, sum(price) as total_price")
+.group("date(created_at").having("sum(price) > ?", 100) # Will return single order records for each day, but only those that are ordered more than $100 in a day
+
+
+
