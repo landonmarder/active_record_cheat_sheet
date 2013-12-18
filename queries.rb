@@ -1,6 +1,6 @@
 # Main idea -- Active Record insulates you from the need to use SQL in most cases
 
-# Here are the models that we are dealing with (different tables in a database)
+# Here are the models that we are dealing with (different tables in a database, think of as different Active Record Array)
 class Client < ActiveRecord::Base
   has_one :address,
     inverse_of: clients,
@@ -47,9 +47,14 @@ end
 
 # Conditions
 
-Client.where("orders_count = ?", "10") # ? replacement style params
+Client.where("orders_count = ?", "10") # Retrieves all the client records
 Client.where(first_name: 'John') # Retrieves all the client records with first name John
 Client.where(order_id: "0123") # Retrieves all the client records where there is an order_id of 0123, joins from the Order table because of belongs_to relationship
-Client.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight) # Retrieve all clients created within that time period
-Client.where(orders_count: [1,3,5])  # Retrieves all the clients that include this order count
-Client.where.not(first_name: "John") # Retrieves all the clients not named John
+Client.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight) # Retrieve all client records created within that time period
+Client.where(orders_count: [1,3,5])  # Retrieves all the client records that include this order count
+Client.where.not(first_name: "John") # Retrieves all the client records not named John
+
+# Ordering
+Client.order(created_at: :desc) # Retrieves all the client records ordered by created at descending
+Client.order(orders_count: :asc, created_at: :desc) # Retrieves all the client records ordered first by order count, then created at
+
