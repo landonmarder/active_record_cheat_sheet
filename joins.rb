@@ -10,6 +10,7 @@ class Post < ActiveRecord::Base
   belongs_to :category
   has_many :comments,
     inverse_of: posts
+
   has_many :tags,
     inverse_of: posts
 end
@@ -21,11 +22,13 @@ class Comment < ActiveRecord::Base
 end
 
 class Guest < ActiveRecord::Base
-  belongs_to :comment
+  belongs_to :comment,
+    inverse_of: :guests
 end
 
 class Tag < ActiveRecord::Base
-  belongs_to :post
+  belongs_to :post,
+    inverse_of: :tags
 end
 
 
