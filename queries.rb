@@ -16,7 +16,8 @@ end
 
 # Order has the client foreign key
 class Order < ActiveRecord::Base
-  belongs_to :client, counter_cache: true
+  belongs_to :client,
+   inverse_of: :orders
 end
 
 
